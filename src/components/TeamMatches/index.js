@@ -1,9 +1,8 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
-
+import Piechart from '../Piechart'
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
-
 import './index.css'
 
 const teamMatchesApiUrl = 'https://apis.ccbp.in/ipl/'
@@ -50,6 +49,11 @@ class TeamMatches extends Component {
     this.setState({teamMatchesData: formattedData, isLoading: false})
   }
 
+  gotoHome = () => {
+    const {history} = this.props
+    history.replace('/')
+  }
+
   renderRecentMatchesList = () => {
     const {teamMatchesData} = this.state
     const {recentMatches} = teamMatchesData
@@ -65,19 +69,29 @@ class TeamMatches extends Component {
 
   renderTeamMatches = () => {
     const {teamMatchesData} = this.state
-    const {teamBannerURL, latestMatch} = teamMatchesData
-
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+    console.log('id: ', id)
+    const {teamBannerURL, latestMatch, recentMatches} = teamMatchesData
+    console.log('recent matches: ', recentMatches)
     return (
-      <div className="responsive-container">
-        <img src={teamBannerURL} alt="team banner" className="team-banner" />
-        <LatestMatch latestMatchData={latestMatch} />
-        {this.renderRecentMatchesList()}
+      <div className="main-container">
+        <button type="button" onClick={this.gotoHome} className="back-button">
+          Back
+        </button>
+        <div className="responsive-container">
+          <img src={teamBannerURL} alt="team banner" className="team-banner" />
+          <LatestMatch latestMatchData={latestMatch} />
+          {this.renderRecentMatchesList()}
+          <Piechart teamId={id} recentMatches={recentMatches} />
+        </div>
       </div>
     )
   }
 
   renderLoader = () => (
-    <div testid="loader" className="loader-container">
+    <div className="loader-container">
       <Loader type="Oval" color="#ffffff" height={50} />
     </div>
   )

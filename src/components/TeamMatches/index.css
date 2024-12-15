@@ -3,7 +3,24 @@
   justify-content: center;
   min-height: 100vh;
 }
-
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.back-button {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  width: fit-content;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1e293b;
+  color: white;
+  cursor: pointer;
+}
 .rcb {
   background: linear-gradient(to top, #1e293b, #a4261d);
 }
